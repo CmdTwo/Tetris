@@ -18,11 +18,12 @@ protected:
 	bool _isInvert;
 
 	unsigned int _matrixSize;
+	unsigned int _figureID;
 
 	unsigned int _height;
 	unsigned int _wight;
 
-	Figure(unsigned int, bool);
+	Figure(Vector2D, unsigned int, bool);
 
 private:
 	Vector2D _pos;
@@ -34,19 +35,26 @@ private:
 
 	virtual void SetDefaultMatrix() = 0;
 
-public:	
+public:
 	Figure();
+
+	Figure(Vector2D);
 
 	~Figure();
 
 	//void Move();
 
-	void Show();
-
 	void Rotate();
 
-	unsigned int GetHeight;
+	//unsigned int GetHeight;
 
-	unsigned int GetWight;
+	//unsigned int GetWight;
+
+	const unsigned int GetMatrixSize();
+	const unsigned int GetFigureID();	
+	bool** GetMatrix();
+	const Vector2D GetPos();
+
+	void SetPos(const Vector2D&);
+
 };
-

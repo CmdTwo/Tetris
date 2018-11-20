@@ -1,14 +1,22 @@
 #include "Figure.h"
 #include <exception>
+#include <algorithm>
 
-Figure::Figure()
+Figure::Figure() : Figure(Vector2D(0, 0))
+{
+	
+}
+
+Figure::Figure(Vector2D pos)
 {
 	_isInvert = false;
 	_rotateMode = Rotate::Left;
+	_pos = pos;
 }
 
-Figure::Figure(unsigned int rotateMode, bool isInvert)
+Figure::Figure(Vector2D pos, unsigned int rotateMode, bool isInvert)
 {
+	_pos = pos;
 	_rotateMode = rotateMode;
 	_isInvert = isInvert;
 }
@@ -18,21 +26,6 @@ Figure::~Figure()
 	for (unsigned int i = 0; i != _matrixSize; i++)
 		delete[] _matrix[i];
 	delete[] _matrix;
-}
-
-#include <iostream>
-
-void Figure::Show()
-{
-	for (unsigned int i = 0; i != _matrixSize; i++)
-	{
-		for (unsigned int j = 0; j != _matrixSize; j++)
-		{
-			std::cout << _matrix[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
 }
 
 void Figure::Transposition() 
@@ -124,4 +117,29 @@ void Figure::Rotate()
 			}
 		}
 	}
+}
+
+const unsigned int Figure::GetMatrixSize()
+{
+	return _matrixSize;
+}
+
+const unsigned int Figure::GetFigureID()
+{
+	return _figureID;
+}
+
+bool** Figure::GetMatrix()
+{
+	return _matrix;
+}
+
+const Vector2D Figure::GetPos()
+{
+	return _pos;
+}
+
+void Figure::SetPos(const Vector2D& pos)
+{
+	_pos = Vector2D(pos);
 }

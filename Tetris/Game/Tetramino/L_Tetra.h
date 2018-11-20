@@ -8,7 +8,7 @@ private:
 
 public:
 
-	L_Tetra();
+	L_Tetra(Vector2D);
 
 	~L_Tetra();
 };

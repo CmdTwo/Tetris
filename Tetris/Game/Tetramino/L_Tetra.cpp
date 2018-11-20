@@ -2,7 +2,7 @@
 
 
 
-L_Tetra::L_Tetra() : Figure()
+L_Tetra::L_Tetra(Vector2D pos) : Figure(pos)
 {
 		_matrix = new bool*[3];
 
@@ -11,6 +11,7 @@ L_Tetra::L_Tetra() : Figure()
 		_height = 3;
 		_wight = 2;
 		_matrixSize = 3;
+		_figureID = 3;
 }
 
 
@@ -23,7 +24,7 @@ void L_Tetra::SetDefaultMatrix()
 	for (unsigned int i = 0; i != _matrixSize; i++)
 		delete[] _matrix[i];
 
-	_matrix[0] = new bool[3]{ 1, 0, 0 };
-	_matrix[1] = new bool[3]{ 1, 0, 0 };
-	_matrix[2] = new bool[3]{ 1, 1, 0 };
+	_matrix[0] = new bool[3]{ 0, 1, 0 };
+	_matrix[1] = new bool[3]{ 0, 1, 0 };
+	_matrix[2] = new bool[3]{ 0, 1, 1 };
 }

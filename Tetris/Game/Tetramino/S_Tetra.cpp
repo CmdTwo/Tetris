@@ -2,7 +2,7 @@
 
 
 
-S_Tetra::S_Tetra() : Figure(Figure::Rotate::Right, true)
+S_Tetra::S_Tetra(Vector2D pos) : Figure(pos, Figure::Rotate::Right, true)
 {
 	_matrix = new bool*[3];
 
@@ -11,6 +11,7 @@ S_Tetra::S_Tetra() : Figure(Figure::Rotate::Right, true)
 	_height = 3;
 	_wight = 2;
 	_matrixSize = 3;
+	_figureID = 5;
 }
 
 

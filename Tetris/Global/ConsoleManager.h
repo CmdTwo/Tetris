@@ -10,6 +10,7 @@ private:
 	~ConsoleManager();
 
 public:
-	static void SetCursosPosition(short, short);
+	static void SetGameConsoleMode();
+	static void SetCursosPosition(short x, short y);
 };
 

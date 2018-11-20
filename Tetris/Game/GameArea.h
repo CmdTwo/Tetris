@@ -2,6 +2,7 @@
 #include "Area.h"
 #include "..\Generic\Border.h"
 #include "Tetramino/Figure.h"
+#include <iostream>
 
 class GameArea : public Area
 {
@@ -17,13 +18,39 @@ private:
 
 	Figure* GenerateFigure();
 
-public:
+	bool CheckSpawnArea();
+
+	bool CheckColision(const unsigned int* oneBegin, const unsigned int* oneEnd, const unsigned int* twoBegin, const unsigned int* twoEnd, const unsigned int n);
+
+	void MoveFigure(Figure* figure, bool onVerical, bool onPositiveSide);
+
+	void DrawFigure(Figure*);
+
+	void ClearFigure(Figure*);
+
+public:	
+
 	GameArea(const unsigned int, const unsigned int, const Vector2D);
 
 	~GameArea();
 
-	void Show() override;
-
 	void TryRotateFigure(Figure*);
+
+	void TryMoveFigure(Figure* figure, bool onVerical, bool onPositiveSide);
+
+	void temp()
+	{
+		while (true)
+		{
+			Show();
+			std::cin.get();
+			TryMoveFigure(_currentFigure, true, false);
+		}	
+	}
+
+	void SpawnFigure();
+
+	void Show() override;
+	
 };
 

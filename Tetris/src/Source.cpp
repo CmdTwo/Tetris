@@ -5,7 +5,8 @@
 int main()
 {
 	GameArea gameArea(20, 10, Vector2D(30, 3));
-	gameArea.Show();
+	//gameArea.Show();
+	gameArea.temp();
 	
 	std::cin.get();
 	return 0;

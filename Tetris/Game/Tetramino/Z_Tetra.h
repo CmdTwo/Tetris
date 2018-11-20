@@ -7,7 +7,7 @@ private:
 	void SetDefaultMatrix() override;
 
 public:
-	Z_Tetra();
+	Z_Tetra(Vector2D);
 	~Z_Tetra();
 };
 

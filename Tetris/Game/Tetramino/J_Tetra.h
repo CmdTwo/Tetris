@@ -7,7 +7,7 @@ private:
 	void SetDefaultMatrix() override;
 
 public:
-	J_Tetra();
+	J_Tetra(Vector2D);
 	~J_Tetra();
 };
 

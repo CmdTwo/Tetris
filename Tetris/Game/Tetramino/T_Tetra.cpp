@@ -2,7 +2,7 @@
 
 
 
-T_Tetra::T_Tetra()
+T_Tetra::T_Tetra(Vector2D pos) : Figure(pos)
 {
 	_matrix = new bool*[3];
 
@@ -11,6 +11,7 @@ T_Tetra::T_Tetra()
 	_height = 2;
 	_wight = 3;
 	_matrixSize = 3;
+	_figureID = 6;
 }
 
 
