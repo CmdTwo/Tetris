@@ -19,7 +19,7 @@ protected:
 
 	unsigned int _matrixSize;
 	unsigned int _figureID;
-
+	unsigned int _rotateMode;
 	unsigned int _height;
 	unsigned int _wight;
 
@@ -27,28 +27,30 @@ protected:
 
 private:
 	Vector2D _pos;
-	unsigned int _rotateMode;
 
 	void Transposition();
+
+	void Transposition(bool** matrix, size_t size);
 
 	void Flip(bool);
 
 	virtual void SetDefaultMatrix() = 0;
 
+	virtual void SetDefaultRotateMode();
+
 public:
-	Figure();
 
 	Figure(Vector2D);
 
 	~Figure();
 
-	//void Move();
-
 	void Rotate();
 
-	//unsigned int GetHeight;
+	bool IsFreeSpaceArea(unsigned int* begin, unsigned int* end);
 
-	//unsigned int GetWight;
+	bool* GetFreeSpaceIter(bool onVerical);
+
+	bool** GetTransposMatrix();
 
 	const unsigned int GetMatrixSize();
 	const unsigned int GetFigureID();	
@@ -56,5 +58,4 @@ public:
 	const Vector2D GetPos();
 
 	void SetPos(const Vector2D&);
-
 };

@@ -132,6 +132,7 @@
     <ClCompile Include="Game\Tetramino\J_Tetra.cpp" />
     <ClCompile Include="Game\Tetramino\I_Tetra.cpp" />
     <ClCompile Include="Game\Tetramino\O_Tetra.cpp" />
+    <ClCompile Include="Generic\KeyInput.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="Generic\Vector2D.cpp" />
     <ClCompile Include="Game\Tetramino\Z_Tetra.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Game\Tetramino\T_Tetra.h" />
     <ClInclude Include="Game\Tetramino\I_Tetra.h" />
     <ClInclude Include="Game\Tetramino\O_Tetra.h" />
+    <ClInclude Include="Generic\KeyInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

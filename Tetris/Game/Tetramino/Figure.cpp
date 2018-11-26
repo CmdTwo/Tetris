@@ -2,16 +2,9 @@
 #include <exception>
 #include <algorithm>
 
-Figure::Figure() : Figure(Vector2D(0, 0))
+Figure::Figure(Vector2D pos) : Figure(pos, Rotate::Left, false)
 {
-	
-}
 
-Figure::Figure(Vector2D pos)
-{
-	_isInvert = false;
-	_rotateMode = Rotate::Left;
-	_pos = pos;
 }
 
 Figure::Figure(Vector2D pos, unsigned int rotateMode, bool isInvert)
@@ -30,9 +23,64 @@ Figure::~Figure()
 
 void Figure::Transposition() 
 {
-	for (unsigned int i = 0; i != _matrixSize; i++)
-		for (unsigned int j = 0; j != i; j++)
-			std::swap(_matrix[i][j], _matrix[j][i]);
+	Transposition(_matrix, _matrixSize);
+	//for (unsigned int i = 0; i != _matrixSize; i++)
+	//	for (unsigned int j = 0; j != i; j++)
+	//		std::swap(_matrix[i][j], _matrix[j][i]);
+}
+
+
+void Figure::Transposition(bool** matrix, size_t size)
+{
+	for (size_t i = 0; i != size; i++)
+		for (size_t j = 0; j != i; j++)
+			std::swap(matrix[i][j], matrix[j][i]);
+}
+
+bool* Figure::GetFreeSpaceIter(bool onVerical)
+{
+	unsigned int sum = 0;
+	if (onVerical)
+	{
+		for (size_t i = 0; i != _matrixSize; i++)
+		{
+			sum = 0;
+			for (size_t j = 0; j != _matrixSize; j++)
+			{
+				sum += _matrix[j][i];
+			}
+			if (sum == 0)
+				return _matrix[i];
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i != _matrixSize; i++)
+		{
+			sum = 0;
+			for (size_t j = 0; j != _matrixSize; j++)
+			{
+				sum += _matrix[i][j];
+			}
+			if (sum == 0)
+				return _matrix[i];
+		}
+	}
+	return 0;
+}
+
+bool** Figure::GetTransposMatrix()
+{
+	bool** matrixClone = new bool*[_matrixSize];
+	for (size_t i = 0; i != _matrixSize; i++)
+	{
+		matrixClone[i] = new bool[_matrixSize];
+		std::copy(_matrix[i], _matrix[i] + _matrixSize, matrixClone[i]);
+	}
+
+	Transposition(matrixClone, _matrixSize);
+
+	return matrixClone;
 }
 
 void Figure::Flip(bool vertical)
@@ -117,6 +165,22 @@ void Figure::Rotate()
 			}
 		}
 	}
+}
+
+void Figure::SetDefaultRotateMode()
+{
+	if(!_isInvert)
+		_rotateMode = Rotate::Left;
+	else
+		_rotateMode = Rotate::Right;
+}
+
+bool Figure::IsFreeSpaceArea(unsigned int* begin, unsigned int* end)
+{
+	unsigned int sum = 0;
+	while (begin != end)
+		sum += *begin++;
+	return sum == 0;
 }
 
 const unsigned int Figure::GetMatrixSize()
