@@ -44,17 +44,24 @@ public:
 
 	~Figure();
 
-	void Rotate();
+	void Rotate(bool onPositive = true);
 
-	bool IsFreeSpaceArea(unsigned int* begin, unsigned int* end);
+	void LocalMove(bool onVertical, bool onPositive);
+
+	bool IsFreeSpaceArea(bool* begin, bool* end);
 
 	bool* GetFreeSpaceIter(bool onVerical);
 
 	bool** GetTransposMatrix();
 
 	const unsigned int GetMatrixSize();
+
 	const unsigned int GetFigureID();	
+
 	bool** GetMatrix();
+
+	bool** GetCopyMatrix();
+
 	const Vector2D GetPos();
 
 	void SetPos(const Vector2D&);

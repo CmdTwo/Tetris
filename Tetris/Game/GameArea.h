@@ -28,9 +28,9 @@ private:
 
 	Figure* GenerateFigure();
 
-	bool CheckSpawnArea();
+	bool CheckSpawnArea(Figure* spawnFigure);
 
-	bool CheckCollision(const unsigned int* oneBegin, const unsigned int* oneEnd, const unsigned int* twoBegin, const unsigned int* twoEnd, const unsigned int n);
+	bool DetectRotateCollision(bool** first, unsigned int** second, const size_t size);
 
 	bool DetectCollision(bool** first, unsigned int** second, const size_t size);
 
@@ -38,9 +38,30 @@ private:
 
 	bool DetectEndAreaCollision(const unsigned int controlSum, const size_t size);
 	
-	unsigned int GetControlSum(unsigned int* begin, unsigned int* end);
+	template<class One, class Two>
+	unsigned int GetControlSum(One* begin, Two* end)
+	{
+		unsigned int sum = 0;
+		while (begin != end)
+			sum += *begin++;
+		return sum;
+	}
 
-	inline bool CheckOutBorder(Vector2D pos, unsigned int size);
+	template<class One, class Two>
+	unsigned int GetMatrixConstrolSum(One** firstMatrix, Two** secondMatrix, size_t size)
+	{
+		unsigned int sum = 0;
+		for (size_t i = 0; i != size; i++)
+		{
+			for (size_t j = 0; j != size; j++)
+			{
+				sum += firstMatrix[i][j] + secondMatrix[i][j];
+			}
+		}
+		return sum;
+	}
+
+	void FreezeFigure(Figure* figure);
 
 	void DrawFigure(Figure*);
 
@@ -61,9 +82,13 @@ public:
 		_nextFigure = GenerateFigure();
 		SpawnFigure();
 
-		KeyInput keys;
 
-		Show();
+
+		KeyInput keys;
+		//ClearFigure(_currentFigure);
+		//_currentFigure->Rotate();
+		//DrawFigure(_currentFigure);
+		//Show();
 
 		while (true)
 		{
@@ -73,7 +98,7 @@ public:
 			//_currentFigure->LocalMove(false, true);
 			//DrawFigure(_currentFigure);
 
-
+			Show();
 			switch (keys.GetKeyInput())
 			{
 			case(KeyInput::UpRow):

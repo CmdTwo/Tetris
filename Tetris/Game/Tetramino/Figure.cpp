@@ -29,7 +29,6 @@ void Figure::Transposition()
 	//		std::swap(_matrix[i][j], _matrix[j][i]);
 }
 
-
 void Figure::Transposition(bool** matrix, size_t size)
 {
 	for (size_t i = 0; i != size; i++)
@@ -71,13 +70,7 @@ bool* Figure::GetFreeSpaceIter(bool onVerical)
 
 bool** Figure::GetTransposMatrix()
 {
-	bool** matrixClone = new bool*[_matrixSize];
-	for (size_t i = 0; i != _matrixSize; i++)
-	{
-		matrixClone[i] = new bool[_matrixSize];
-		std::copy(_matrix[i], _matrix[i] + _matrixSize, matrixClone[i]);
-	}
-
+	bool** matrixClone = GetCopyMatrix();
 	Transposition(matrixClone, _matrixSize);
 
 	return matrixClone;
@@ -109,12 +102,56 @@ void Figure::Flip(bool vertical)
 	}
 }
 
-void Figure::Rotate()
+void Figure::LocalMove(bool onVertical, bool onPositive)
+{
+	size_t iterations = _matrixSize - 1;
+
+	if (onVertical)
+	{
+		if (onPositive)
+		{
+			for (size_t i = 0; i != _matrixSize; i++)
+				for (size_t j = iterations; j != 0; j--)
+					std::swap(_matrix[j][i], _matrix[j - 1][i]);
+		}
+		else
+		{
+			for (size_t i = 0; i != _matrixSize; i++)
+				for (size_t j = 0; j != iterations; j++)
+					std::swap(_matrix[j][i], _matrix[j + 1][i]);
+		}
+	}
+	else
+	{
+		if (onPositive)
+		{
+			for (size_t i = 0; i != _matrixSize; i++)
+				for (size_t j = iterations; j != 0; j--)
+					std::swap(_matrix[i][j], _matrix[i][j - 1]);
+		}
+		else
+		{
+			for (size_t i = 0; i != _matrixSize; i++)
+				for (size_t j = 0; j != iterations; j++)
+					std::swap(_matrix[i][j], _matrix[i][j + 1]);
+		}
+	}
+}
+
+void Figure::Rotate(bool onPositive)
 {
 	if (_rotateMode != Rotate::NonRotate)
 	{
-		if (++_rotateMode == Rotate::NonRotate)
-			_rotateMode = Rotate::Left;
+		if (onPositive)
+		{
+			if (++_rotateMode == Rotate::NonRotate)
+				_rotateMode = Rotate::Left;
+		}
+		else
+		{
+			if (--_rotateMode == -1)
+				_rotateMode = Rotate::Up;
+		}
 
 		SetDefaultMatrix();
 
@@ -175,7 +212,7 @@ void Figure::SetDefaultRotateMode()
 		_rotateMode = Rotate::Right;
 }
 
-bool Figure::IsFreeSpaceArea(unsigned int* begin, unsigned int* end)
+bool Figure::IsFreeSpaceArea(bool* begin, bool* end)
 {
 	unsigned int sum = 0;
 	while (begin != end)
@@ -196,6 +233,17 @@ const unsigned int Figure::GetFigureID()
 bool** Figure::GetMatrix()
 {
 	return _matrix;
+}
+
+bool** Figure::GetCopyMatrix()
+{
+	bool** matrixClone = new bool*[_matrixSize];
+	for (size_t i = 0; i != _matrixSize; i++)
+	{
+		matrixClone[i] = new bool[_matrixSize];
+		std::copy(_matrix[i], _matrix[i] + _matrixSize, matrixClone[i]);
+	}
+	return matrixClone;
 }
 
 const Vector2D Figure::GetPos()
