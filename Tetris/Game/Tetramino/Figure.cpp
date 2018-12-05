@@ -220,6 +220,16 @@ bool Figure::IsFreeSpaceArea(bool* begin, bool* end)
 	return sum == 0;
 }
 
+void Figure::MoveOnX(unsigned int newX)
+{
+	_pos.X += newX;
+}
+
+void Figure::MoveOnY(unsigned int newY)
+{
+	_pos.Y += newY;
+}
+
 const unsigned int Figure::GetMatrixSize()
 {
 	return _matrixSize;

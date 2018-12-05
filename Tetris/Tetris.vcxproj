@@ -127,13 +127,14 @@
     <ClCompile Include="Game\Tetramino\Figure.cpp" />
     <ClCompile Include="Global\ConsoleManager.cpp" />
     <ClCompile Include="Generic\Border.cpp" />
-    <ClCompile Include="Game\Area.cpp" />
-    <ClCompile Include="Game\GameArea.cpp" />
+    <ClCompile Include="Game\Area\Area.cpp" />
+    <ClCompile Include="Game\Area\GameArea.cpp" />
     <ClCompile Include="Game\Tetramino\L_Tetra.cpp" />
     <ClCompile Include="Game\Tetramino\J_Tetra.cpp" />
     <ClCompile Include="Game\Tetramino\I_Tetra.cpp" />
     <ClCompile Include="Game\Tetramino\O_Tetra.cpp" />
     <ClCompile Include="Generic\KeyInput.cpp" />
+    <ClCompile Include="Game\Area\NextSpawn.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="Generic\Vector2D.cpp" />
     <ClCompile Include="Game\Tetramino\Z_Tetra.cpp" />
@@ -145,8 +146,8 @@
     <ClInclude Include="Game\Tetramino\Figure.h" />
     <ClInclude Include="Global\ConsoleManager.h" />
     <ClInclude Include="Generic\Border.h" />
-    <ClInclude Include="Game\Area.h" />
-    <ClInclude Include="Game\GameArea.h" />
+    <ClInclude Include="Game\Area\Area.h" />
+    <ClInclude Include="Game\Area\GameArea.h" />
     <ClInclude Include="Generic\Vector2D.h" />
     <ClInclude Include="Game\Tetramino\L_Tetra.h" />
     <ClInclude Include="Game\Tetramino\J_Tetra.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Game\Tetramino\I_Tetra.h" />
     <ClInclude Include="Game\Tetramino\O_Tetra.h" />
     <ClInclude Include="Generic\KeyInput.h" />
+    <ClInclude Include="Game\Area\NextSpawn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,9 @@
 #include "Area.h"
 
+Area::Area()
+{
 
+}
 
 Area::Area(const unsigned int height, const unsigned int wight, const Vector2D pos)
 {

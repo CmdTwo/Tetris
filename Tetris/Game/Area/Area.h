@@ -1,5 +1,5 @@
 #pragma once
-#include "../Generic/Vector2D.h"
+#include "../../Generic/Vector2D.h"
 
 class Area
 {
@@ -9,6 +9,8 @@ protected:
 	Vector2D _pos;
 
 public:
+
+	Area();
 	Area(const unsigned int, const unsigned int, const Vector2D);
 
 	~Area();

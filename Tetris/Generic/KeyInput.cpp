@@ -27,6 +27,8 @@ KeyInput::Keys KeyInput::GetKeyInput()
 	case(304):
 		return KeyInput::DownRow;
 	case(82):
+	case(114):
+	case(170):
 	case(138):
 		return KeyInput::R;
 	case(13):

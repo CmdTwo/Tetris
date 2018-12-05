@@ -4,18 +4,24 @@
 #include <numeric>
 #include <iostream>
 
-#include "Tetramino/I_Tetra.h"
-#include "Tetramino/J_Tetra.h"
-#include "Tetramino/L_Tetra.h"
-#include "Tetramino/O_Tetra.h"
-#include "Tetramino/S_Tetra.h"
-#include "Tetramino/T_Tetra.h"
-#include "Tetramino/Z_Tetra.h"
+#include "../../Global/ConsoleManager.h"
 
-#include "../Global/ConsoleManager.h"
+GameArea::GameArea()
+{
+
+}
 
 GameArea::GameArea(const unsigned int height, const unsigned int wight, const Vector2D pos) : Area(height, wight, pos)
 {
+	_height = height;
+	_wight = wight;
+
+	GAME_AREA_H = &_height;
+	GAME_AREA_W = &_wight;
+
+	GLOBAL_MATRIX_H = *GAME_AREA_H + 2;
+	GLOBAL_MATRIX_W = *GAME_AREA_W + 2;
+
 	srand(time(NULL));
 	_border = Border(this, 1);
 
@@ -36,28 +42,12 @@ GameArea::GameArea(const unsigned int height, const unsigned int wight, const Ve
 		}
 	}
 
-	_gameMatrix = new unsigned int*[GAME_AREA_H];
+	_gameMatrix = new unsigned int*[*GAME_AREA_H];
 
-	for (size_t i = 0; i != GAME_AREA_H; i++)
+	for (size_t i = 0; i != *GAME_AREA_H; i++)
 	{
 		_gameMatrix[i] = _globalMatrix[i + 1] + 1;
 	}	
-}
-
-Figure* GameArea::GenerateFigure()
-{
-	switch (rand() % 7 + 1)
-	{
-	case(1): return new I_Tetra(Vector2D(0, 0));
-	case(2): return new J_Tetra(Vector2D(0, 0));
-	case(3): return new L_Tetra(Vector2D(0, 0));
-	case(4): return new O_Tetra(Vector2D(0, 0));
-	case(5): return new S_Tetra(Vector2D(0, 0));
-	case(6): return new T_Tetra(Vector2D(0, 0));
-	case(7): return new Z_Tetra(Vector2D(0, 0));
-	default: throw std::exception("Invaild figure spawn id!"); break;
-	}
-	//return new T_Tetra(Vector2D(0, 0));
 }
 
 GameArea::~GameArea()
@@ -65,29 +55,23 @@ GameArea::~GameArea()
 	for (unsigned int i = 0; i != GLOBAL_MATRIX_H; i++)
 		delete[] _globalMatrix[i];
 	delete[] _globalMatrix;
-
-	delete _currentFigure;
-	delete _nextFigure;
 }
 
 void GameArea::Show()
 {	
-	//ConsoleManager::SetGameConsoleMode();
 	_border.DrawBorder();
 	
-	for (unsigned int i = 0; i != GAME_AREA_H; i++)
-	{
-		ConsoleManager::SetCursosPosition(_pos.X, _pos.Y + i);
-		for (unsigned int j = 0; j != GAME_AREA_W; j++)
-		{
-			std::cout << (_gameMatrix[i][j] != 0 ? '\xDB' : ' ');
-			//std::cout << _gameMatrix[i][j] << ' ';
-		}
-		std::cout << std::endl;
-	}
+	//for (unsigned int i = 0; i != *GAME_AREA_H; i++)
+	//{
+	//	ConsoleManager::SetCursosPosition(_pos.X, _pos.Y + i);
+	//	for (unsigned int j = 0; j != *GAME_AREA_W; j++)
+	//	{
+	//		std::cout << (_gameMatrix[i][j] != 0 ? '\xDB' : ' ');
+	//		//std::cout << _gameMatrix[i][j] << ' ';
+	//	}
+	//	std::cout << std::endl;
+	//}
 }
-
-
 
 void GameArea::TryRotateFigure(Figure* figure)
 {
@@ -119,12 +103,6 @@ void GameArea::TryRotateFigure(Figure* figure)
 	delete[] before;
 }
 
-void GameArea::FreezeFigure(Figure* figure)
-{
-	_currentFigure->~Figure();
-	SpawnFigure();
-}
-
 bool GameArea::DetectRotateCollision(bool** first, unsigned int** second, const size_t size)
 {
 	bool* firstBegin;
@@ -147,27 +125,45 @@ bool GameArea::DetectRotateCollision(bool** first, unsigned int** second, const 
 	return false;
 }
 
-bool GameArea::DetectCollision(bool** first, unsigned int** second, size_t size)
-{
-	bool* firstBegin;
-	unsigned int* secondBegin;
-	for (size_t i = 0; i != size; i++)
-	{
-		firstBegin = first[i];
-		secondBegin = second[i];
+//bool GameArea::DetectCollision(bool** first, unsigned int** second, size_t size)
+//{
+//	//bool* firstBegin;
+//	//unsigned int* secondBegin;
+//	for (size_t i = 0; i != size; i++)
+//	{
+//		if (DetectCollision(first[i], second[i], size))
+//			return true;
+//		/*firstBegin = first[i];
+//		secondBegin = second[i];
+//
+//		while (firstBegin != first[i] + size && secondBegin != second[i] + size)
+//		{
+//			if (*firstBegin != 0 && *secondBegin != 0)
+//			{
+//				return true;
+//			}
+//			firstBegin++;
+//			secondBegin++;
+//		}*/
+//	}
+//	return false;
+//}
 
-		while (firstBegin != first[i] + size && secondBegin != second[i] + size)
-		{
-			if (*firstBegin != 0 && *secondBegin != 0)
-			{
-				return true;
-			}
-			firstBegin++;
-			secondBegin++;
-		}
-	}
-	return false;
-}
+//bool GameArea::DetectCollision(bool* first, unsigned int* second, size_t size)
+//{
+//	bool* firstBegin = first;
+//	unsigned int* secondBegin = second;
+//	while (firstBegin != first + size && secondBegin != second + size)
+//	{
+//		if (*firstBegin != 0 && *secondBegin != 0)
+//		{
+//			return true;
+//		}
+//		firstBegin++;
+//		secondBegin++;
+//	}
+//	return false;
+//}
 
 bool GameArea::DetectBorderCollision(const unsigned int controlSum, const size_t size)
 {
@@ -188,11 +184,6 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 
 	unsigned int** nextPosMatrix = new unsigned int*[size];
 	bool** figureMatrix = figure->GetMatrix();
-
-	unsigned int figureSide = 0;
-	unsigned int globalSide = 0;
-
-	bool isFreeze = false;
 
 	size_t posOffset;
 
@@ -217,10 +208,6 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 		}	
 	}
 
-	figureSide = (onPositiveSide) ? GetControlSum(figureMatrix[size - 1], figureMatrix[size - 1] + size) 
-		: GetControlSum(figureMatrix[0], figureMatrix[0] + size);
-	globalSide = GetControlSum(nextPosMatrix[1], nextPosMatrix[1] + size);
-
 	if (onPositiveSide)
 		controlSum = GetControlSum(nextPosMatrix[size - 1], nextPosMatrix[size - 1] + size);
 	else
@@ -232,7 +219,11 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 		std::cout << std::string(40, ' ').c_str() << std::endl;
 		ConsoleManager::SetCursosPosition(0, 0);
 		std::cout << "Detect the border collision";
-		if (figureSide == 0 && globalSide == 0)
+
+		bool detectLocalCollision = (onPositiveSide) ? DetectCollision(figureMatrix[size - 1], figureMatrix[size - 1] + size, size)
+			: DetectCollision(figureMatrix[0], figureMatrix[0] + size, size);
+
+		if (!detectLocalCollision)
 		{
 			ConsoleManager::SetCursosPosition(0, 0);
 			std::cout << std::string(40, ' ').c_str() << std::endl;
@@ -248,7 +239,11 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 		std::cout << std::string(40, ' ').c_str() << std::endl;
 		ConsoleManager::SetCursosPosition(0, 0);
 		std::cout << "Detect the end area collision";
-		if (figureSide == 0 && globalSide == 0)
+		
+		bool detectLocalCollision = (onPositiveSide) ? DetectCollision(figureMatrix[size - 1], figureMatrix[size - 1] + size, size)
+			: DetectCollision(figureMatrix[0], figureMatrix[0] + size, size);
+
+		if (!detectLocalCollision)
 		{
 			ConsoleManager::SetCursosPosition(0, 0);
 			std::cout << std::string(40, ' ').c_str() << std::endl;
@@ -270,9 +265,9 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 		std::cout << "No detected any collision";
 
 		if (onVertical)
-			figure->SetPos(Vector2D(pos.X, pos.Y + (onPositiveSide ? 1 : -1)));
+			figure->MoveOnY(onPositiveSide ? 1 : -1);
 		else
-			figure->SetPos(Vector2D(pos.X + (onPositiveSide ? 1 : -1), pos.Y));
+			figure->MoveOnX(onPositiveSide ? 1 : -1);
 	}
 	else if (controlSum != 0) // проверка коллизии с фигурой
 	{
@@ -303,14 +298,12 @@ void GameArea::TryMoveFigure(Figure* figure, bool onVertical, bool onPositiveSid
 	delete[] nextPosMatrix;
 
 	DrawFigure(figure);
-	if (isFreeze)
-		FreezeFigure(figure);
 }
 
 bool GameArea::CheckSpawnArea(Figure* spawnFigure)
 {
 	unsigned int sum = 0;	
-	unsigned int mid = GAME_AREA_W / 2;
+	unsigned int mid = *GAME_AREA_W / 2;
 	unsigned int figureMid = spawnFigure->GetMatrixSize() / 2;
 
 	for (size_t i = 0; i != spawnFigure->GetMatrixSize(); i++)
@@ -327,12 +320,13 @@ void GameArea::DrawFigure(Figure* figure)
 		{
 			if (figure->GetMatrix()[i][j])
 			{
-				//ConsoleManager::SetCursosPosition(_pos.X + figure->GetPos().X + j, _pos.Y + figure->GetPos().Y + i);
-				_globalMatrix[figure->GetPos().Y + i][figure->GetPos().X + j] = _currentFigure->GetFigureID();
-				//std::cout << '\xDB';
+				ConsoleManager::SetCursosPosition(_pos.X + figure->GetPos().X + j - 1, _pos.Y + figure->GetPos().Y + i - 1);
+				_globalMatrix[figure->GetPos().Y + i][figure->GetPos().X + j] = figure->GetFigureID();
+				std::cout << '\xDB';
 			}
 		}
 	}
+	ConsoleManager::SetCursosPosition(0, 0);
 }
 
 void GameArea::ClearFigure(Figure* figure)
@@ -343,44 +337,31 @@ void GameArea::ClearFigure(Figure* figure)
 		{		
 			if (figure->GetMatrix()[i][j])
 			{
-				//ConsoleManager::SetCursosPosition(_pos.X + j + figure->GetPos().X, _pos.Y + figure->GetPos().Y + i);
+				ConsoleManager::SetCursosPosition(_pos.X + j + figure->GetPos().X - 1, _pos.Y + figure->GetPos().Y + i - 1);
 				_globalMatrix[figure->GetPos().Y + i][figure->GetPos().X + j] = 0;
-				//std::cout << ' ';
-			}
-		}
-	}
-}
-
-void GameArea::SpawnFigure()
-{
-	_currentFigure = _nextFigure;
-	_nextFigure = GenerateFigure();
-
-	if (CheckSpawnArea(_currentFigure))
-	{
-		_currentFigure->SetPos(Vector2D(GAME_AREA_W / 2 - _currentFigure->GetMatrixSize() / 2, 1));
-		DrawFigure(_currentFigure);
-
-		for (unsigned int i = 0; i != 3; i++)
-		{
-			for (unsigned int j = 0; j != 3; j++)
-			{
-				ConsoleManager::SetCursosPosition(50 + i, 10 + j);
 				std::cout << ' ';
 			}
 		}
+	}
+	ConsoleManager::SetCursosPosition(0, 0);
+}
 
-		for (unsigned int i = 0; i != _nextFigure->GetMatrixSize(); i++)
-		{
-			for (unsigned int j = 0; j != _nextFigure->GetMatrixSize(); j++)
-			{
-				ConsoleManager::SetCursosPosition(50 + i, 10 + j);
-				std::cout << ((_nextFigure->GetMatrix()[j][i]) ? '\xDB' : ' ');
-			}
-		}
+bool GameArea::SpawnFigure(Figure* figure)
+{
+	isFreeze = false;
+	if (CheckSpawnArea(figure))
+	{
+		figure->SetPos(Vector2D(*GAME_AREA_W / 2 - figure->GetMatrixSize() / 2, 1));
+		DrawFigure(figure);		
+		return true;
 	}
 	else
 	{
+		return false;
+	}	
+}
 
-	}
+bool& GameArea::GetIsFreeze()
+{
+	return isFreeze;
 }

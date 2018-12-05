@@ -50,6 +50,9 @@ public:
 
 	bool IsFreeSpaceArea(bool* begin, bool* end);
 
+	void MoveOnX(unsigned int newX);
+	void MoveOnY(unsigned int newY);
+
 	bool* GetFreeSpaceIter(bool onVerical);
 
 	bool** GetTransposMatrix();

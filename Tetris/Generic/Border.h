@@ -1,6 +1,6 @@
 #pragma once
 #include "Vector2D.h"
-#include "..\Game\Area.h"
+#include "..\Game\Area\Area.h"
 
 class Border
 {
