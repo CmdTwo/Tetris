@@ -3,6 +3,7 @@
 #include "..\..\Generic\Border.h"
 #include "..\Tetramino/Figure.h"
 #include <iostream>
+#include <vector>
 
 class GameArea : public Area
 {
@@ -87,6 +88,12 @@ private:
 
 	void ClearFigure(Figure*);
 
+	void MoveDown(size_t beforeRowId);
+
+	void RemoveRow(size_t rowId);
+
+	void ReShowArea();
+
 public:	
 
 	GameArea();
@@ -103,6 +110,8 @@ public:
 
 	void Show() override;
 
-	bool& GetIsFreeze();	
+	std::vector<unsigned int> GetScore(Figure* figure);
+
+	bool& GetIsFreeze();
 };
 

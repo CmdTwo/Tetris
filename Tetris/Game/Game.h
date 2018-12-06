@@ -1,6 +1,7 @@
 #pragma once
 #include "Area/GameArea.h"
 #include "Area/NextSpawn.h"
+#include "Area/InfoPanel.h"
 #include "../Generic/KeyInput.h"
 #include "Tetramino/Figure.h"
 
@@ -10,8 +11,9 @@ private:
 
 	GameArea* _gameArea;
 	NextSpawn* _nextSpawnArea;
+	InfoPanel* _infoPanelArea;
 
-	KeyInput* _keyInput;
+	KeyInput _keyInput;
 	
 	bool* isFigureFreeze;
 

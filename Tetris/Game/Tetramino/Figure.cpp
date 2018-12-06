@@ -2,16 +2,17 @@
 #include <exception>
 #include <algorithm>
 
-Figure::Figure(Vector2D pos) : Figure(pos, Rotate::Left, false)
+Figure::Figure(Vector2D pos, ConsoleManager::ConsoleColor color) : Figure(pos, Rotate::Left, false, color)
 {
 
 }
 
-Figure::Figure(Vector2D pos, unsigned int rotateMode, bool isInvert)
+Figure::Figure(Vector2D pos, unsigned int rotateMode, bool isInvert, ConsoleManager::ConsoleColor color)
 {
 	_pos = pos;
 	_rotateMode = rotateMode;
 	_isInvert = isInvert;
+	_color = color;
 }
 
 Figure::~Figure()
@@ -235,10 +236,10 @@ const unsigned int Figure::GetMatrixSize()
 	return _matrixSize;
 }
 
-const unsigned int Figure::GetFigureID()
-{
-	return _figureID;
-}
+//const unsigned int Figure::GetFigureID()
+//{
+//	return _figureID;
+//}
 
 bool** Figure::GetMatrix()
 {
@@ -264,4 +265,9 @@ const Vector2D Figure::GetPos()
 void Figure::SetPos(const Vector2D& pos)
 {
 	_pos = Vector2D(pos);
+}
+
+ConsoleManager::ConsoleColor Figure::GetColor()
+{
+	return _color;
 }

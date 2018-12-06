@@ -2,7 +2,7 @@
 
 
 
-J_Tetra::J_Tetra(Vector2D pos) : Figure(pos, Figure::Rotate::Right, true)
+J_Tetra::J_Tetra(Vector2D pos, ConsoleManager::ConsoleColor color) : Figure(pos, Figure::Rotate::Right, true, color)
 {
 	_matrix = new bool*[3];
 
@@ -11,7 +11,7 @@ J_Tetra::J_Tetra(Vector2D pos) : Figure(pos, Figure::Rotate::Right, true)
 	_height = 3;
 	_wight = 2;
 	_matrixSize = 3;
-	_figureID = 2;
+	//_figureID = 2;
 }
 
 

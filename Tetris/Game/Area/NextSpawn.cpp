@@ -22,6 +22,8 @@ void NextSpawn::UpdateFigure(Figure* figure)
 		std::cout << std::string(_wight, ' ').c_str();
 	}
 
+	ConsoleManager::SetConoleColor(figure->GetColor());
+
 	for (size_t i = 0; i != iterations; i++)
 	{
 		for (size_t j = 0; j != iterations; j++)
@@ -30,6 +32,8 @@ void NextSpawn::UpdateFigure(Figure* figure)
 			std::cout << (figure->GetMatrix()[i][j] != 0 ? '\xDB' : ' ');
 		}
 	}
+
+	ConsoleManager::ResetColors();
 }
 
 NextSpawn::~NextSpawn()

@@ -2,7 +2,7 @@
 
 
 
-Z_Tetra::Z_Tetra(Vector2D pos) : Figure(pos)
+Z_Tetra::Z_Tetra(Vector2D pos, ConsoleManager::ConsoleColor color) : Figure(pos, color)
 {
 	_matrix = new bool*[3];
 
@@ -11,7 +11,7 @@ Z_Tetra::Z_Tetra(Vector2D pos) : Figure(pos)
 	_height = 3;
 	_wight = 2;
 	_matrixSize = 3;
-	_figureID = 7;
+	//_figureID = 7;
 }
 
 

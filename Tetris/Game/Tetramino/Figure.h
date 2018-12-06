@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Generic/Vector2D.h"
+#include "../../Global/ConsoleManager.h"
 
 class Figure
 {
@@ -18,15 +19,17 @@ protected:
 	bool _isInvert;
 
 	unsigned int _matrixSize;
-	unsigned int _figureID;
+	//unsigned int _figureID;
 	unsigned int _rotateMode;
 	unsigned int _height;
 	unsigned int _wight;
 
-	Figure(Vector2D, unsigned int, bool);
+	Figure(Vector2D, unsigned int, bool, ConsoleManager::ConsoleColor);
 
 private:
 	Vector2D _pos;
+	
+	ConsoleManager::ConsoleColor _color;
 
 	void Transposition();
 
@@ -40,7 +43,7 @@ private:
 
 public:
 
-	Figure(Vector2D);
+	Figure(Vector2D, ConsoleManager::ConsoleColor);
 
 	~Figure();
 
@@ -59,7 +62,7 @@ public:
 
 	const unsigned int GetMatrixSize();
 
-	const unsigned int GetFigureID();	
+	//const unsigned int GetFigureID();	
 
 	bool** GetMatrix();
 
@@ -68,4 +71,6 @@ public:
 	const Vector2D GetPos();
 
 	void SetPos(const Vector2D&);
+
+	ConsoleManager::ConsoleColor GetColor();
 };

@@ -7,7 +7,7 @@ private:
 	void SetDefaultMatrix() override;
 
 public:
-	Z_Tetra(Vector2D);
+	Z_Tetra(Vector2D, ConsoleManager::ConsoleColor);
 	~Z_Tetra();
 };
 
