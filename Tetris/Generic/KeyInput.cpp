@@ -31,8 +31,10 @@ KeyInput::Keys KeyInput::GetKeyInput()
 	case(170):
 	case(138):
 		return KeyInput::R;
-	case(13):
-		return KeyInput::Enter;
+	case(27):
+		return KeyInput::Esc;
+	case(59):
+		return KeyInput::F1;
 	default:
 		return KeyInput::NonGameKey;
 	}

@@ -27,5 +27,7 @@ public:
 	static void ResetColors();
 
 	static void SetCursosPosition(short x, short y);
+
+	static void ClearConsole();
 };
 

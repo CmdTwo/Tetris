@@ -75,6 +75,11 @@ void InfoPanel::UpdateGameInfo(const std::vector<unsigned int> scoreVec)
 	}
 }
 
+unsigned int InfoPanel::GetScore()
+{
+	return _score;
+}
+
 InfoPanel::~InfoPanel()
 {
 	_gameInfo.clear();

@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 #pragma region Tetramino includes
 
 #include "Tetramino/I_Tetra.h"
@@ -18,6 +19,7 @@ Game::Game()
 	_gameArea = new GameArea(20, 10, Vector2D(30, 3));
 	_nextSpawnArea = new NextSpawn(3, 3, Vector2D(50, 5));
 	_infoPanelArea = new InfoPanel(10, 20, Vector2D(50, 13));
+	_gameOverArea = new GameOver(5, 15, Vector2D(30, 10), _infoPanelArea);
 
 	_keyInput = KeyInput();
 
@@ -53,13 +55,14 @@ void Game::LiveCircle()
 {
 	_currentFigure = GenerateFigure();
 	_nextFigure = GenerateFigure();
-
+	
 	while (_gameArea->SpawnFigure(_currentFigure))
 	{
 		_nextSpawnArea->UpdateFigure(_nextFigure);
 
 		while (!*isFigureFreeze)
 		{
+			
 			switch (_keyInput.GetKeyInput())
 			{
 				case(KeyInput::LeftRow):
@@ -74,7 +77,11 @@ void Game::LiveCircle()
 				case(KeyInput::R):
 					_gameArea->TryRotateFigure(_currentFigure);
 					break;
-				default:				
+				case(KeyInput::Esc):
+					return;
+				case(KeyInput::F1):
+					LPCTSTR helpFile = "help.chm";
+					ShellExecute(NULL, "open", helpFile, NULL, NULL, SW_SHOWNORMAL);
 					break;
 			}
 		}
@@ -84,8 +91,11 @@ void Game::LiveCircle()
 		_currentFigure->~Figure();
 
 		_currentFigure = _nextFigure;
-		_nextFigure = GenerateFigure();		
+		_nextFigure = GenerateFigure();	
 	}
+
+	ConsoleManager::ClearConsole();
+	_gameOverArea->Show();
 }
 
 Game::~Game()
@@ -93,4 +103,5 @@ Game::~Game()
 	delete _gameArea;
 	delete _nextSpawnArea;
 	delete _infoPanelArea;
+	delete _gameOverArea;
 }

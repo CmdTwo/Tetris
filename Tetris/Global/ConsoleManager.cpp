@@ -28,3 +28,8 @@ void ConsoleManager::ResetColors()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defaultColor);
 }
+
+void ConsoleManager::ClearConsole()
+{
+	system("cls");
+}

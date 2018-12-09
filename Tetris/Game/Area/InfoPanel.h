@@ -26,6 +26,8 @@ public:
 
 	void UpdateGameInfo(const std::vector<unsigned int> scoreVec);
 
+	unsigned int GetScore();
+
 	~InfoPanel();
 };
 

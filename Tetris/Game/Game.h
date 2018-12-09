@@ -2,6 +2,7 @@
 #include "Area/GameArea.h"
 #include "Area/NextSpawn.h"
 #include "Area/InfoPanel.h"
+#include "Area/GameOver.h"
 #include "../Generic/KeyInput.h"
 #include "Tetramino/Figure.h"
 
@@ -12,6 +13,7 @@ private:
 	GameArea* _gameArea;
 	NextSpawn* _nextSpawnArea;
 	InfoPanel* _infoPanelArea;
+	GameOver* _gameOverArea;
 
 	KeyInput _keyInput;
 	
@@ -21,7 +23,7 @@ private:
 	Figure* _nextFigure;
 
 	Figure* GenerateFigure();
-
+	
 public:
 
 	Game();

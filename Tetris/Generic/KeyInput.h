@@ -12,7 +12,8 @@ public:
 		RightRow,
 		DownRow,
 		R,
-		Enter,
+		F1,
+		Esc
 	};
 
 	Keys GetKeyInput();
